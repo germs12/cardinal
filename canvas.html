@@ -28,11 +28,12 @@
   }
   body { background-color: blue; }
   </style>
-  <script src="js/jquery.js"></script>
+  <script src="jquery.js"></script>
 </head>
 <body>
-  <div class="n">N<br><br><br><br>S</div>
-  <div class="pointer"></div>
+<canvas id="myCanvas" width="200" height="100"
+style="border:1px solid #000000;">
+</canvas>
 <script>
 
 $.strPad = function(i,l,s) {
@@ -46,23 +47,6 @@ $.strPad = function(i,l,s) {
 
 $(document).ready(function() {
 
-  var rotate = function (deg) {  
-      $(".n").css({ "-moz-transform": "rotate(0deg)"});
-      $(".n").css({ "-moz-transform": "rotate(" + deg + "deg)"});
-    
-      $(".n").css({ "-o-transform": "rotate(0deg)"});
-      $(".n").css({ "-o-transform": "rotate(" + deg + "deg)"});
-    
-      $(".n").css({ "-ms-transform": "rotate(0deg)"});
-      $(".n").css({ "-ms-transform": "rotate(" + deg + "deg)"});
-    
-      $(".n").css({ "-webkit-transform": "rotate(0deg)"});
-      $(".n").css({ "-webkit-transform": "rotate(" + deg + "deg)"});
-    
-      $(".n").css({ "transform": "rotate(0deg)"});
-      $(".n").css({ "transform": "rotate(" + deg + "deg)"});
-  };
-
   var tilt = function (deg) {
     var hex = Math.abs(deg).toString(16);
 
@@ -74,12 +58,20 @@ $(document).ready(function() {
 
   if (window.DeviceOrientationEvent) {
     window.addEventListener("deviceorientation", function (e) {
-      rotate(360 - e.alpha);
+      
+
       var one = tilt(e.beta);
       var two = tilt(e.alpha);
       var thr = tilt(e.gamma);
       var backgd = "#" + one + two + thr
-      $("body").css({"background-color": backgd});
+  
+      var c=document.getElementById("myCanvas");
+      var ctx=c.getContext("2d");
+      ctx.fillStyle=backgd;
+      var wwidth = $(window).width();
+      var wheight = $(window).height()
+      ctx.fillRect(0,0,wwidth,wheight);
+
       console.log(backgd);
     }, false);
   }
