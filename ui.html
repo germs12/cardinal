@@ -1,0 +1,50 @@
+<html>
+<head><script src="http://cdn.alloyui.com/2.0.0pr5/aui/aui-min.js"></script></head>
+<body>
+  <div id="myDataTable"></div>
+
+
+
+<script type="text/javascript">
+YUI().use(
+  'aui-datatable',
+  'datatable-sort',
+  function(Y) {
+    var columns = [
+      {
+        key: 'name',
+        sortable: true
+      },
+      {
+        key: 'age',
+        sortable: true
+      }
+    ];
+
+    var data = [
+      {
+        name: 'Bob',
+        age: '28'
+      },
+      {
+        name: 'Joe',
+        age: '72'
+      },
+      {
+        name: 'Sarah',
+        age: '35'
+      }
+    ];
+
+    new Y.DataTable(
+      {
+        columns: columns,
+        data: data
+      }
+    ).render("#myDataTable");
+  }
+);
+</script>
+
+</body>
+</html>
